@@ -2,35 +2,31 @@
 
 from sys import exit
 import sys
+import random
 
-player = raw_input("First, what is your name: \n")
-points = 0
+player = raw_input("First, what is your name:  ")
 
 def start():
 	print "Now %s, welcome to the Cicerone training game." % player
 	print "You will work your way through town answering a series of beery questions."
-	print "If you answer correctly, you gain points."
-	print "If you answer incorrectly, you lose points."
-	print "If you succeed, you will enter Nirvana."
-	print "If you fail, it's damnation for you...\n"
+	print "Make sure to capitalize your answers."
+	print "If you answer correctly, you win."
+	print "If you answer incorrectly, you lose."
+	print "That's life.\n"
 
 	vicar_office()
 
 def vicar_office():
 	print "You are in the office of your local vicar."
-	print "He asks you to abdicate free thought and join his flock."
+	print "He asks, 'Name one of the two types of barley used in brewing.'"
 
-	vicar_answer = raw_input("'Yes' or 'No'? ")
+	vicar_answer = raw_input()
 
-	if vicar_answer == "Yes":
-		die()
-	elif vicar_answer == "No":
-		# points += 1
-		# print points
-		print "Nice, you get to move on.\n"
+	if vicar_answer == "Two Row":
+		print "Good job.\n"
 		dmv()
-	elif vicar_answer == "Hell No":
-		print "Hell yeah! Move on...\n"
+	elif vicar_answer == "Six Row":
+		print "Nice, you get to move on.\n"
 		dmv()
 	else:
 		print "Try again..."
@@ -50,11 +46,10 @@ def dmv():
 		ibu_acronym = raw_input("> ")
 
 		if ibu_acronym == "International Bitterness Units":
-			# put this if/else in a function? "shouldn't go 2 deep..."
 			print "Right again!!\n"
 			ups_store()
 		else:
-			print "Not quite. You live another day...\n"
+			print "Not quite.\n"
 			post_office()
 	else:
 		print "Nope. You dead."
@@ -68,9 +63,9 @@ def ups_store():
 	srm = raw_input("> ")
 
 	if srm == "Color":
-		print "You got it!"
+		print "You got it!\n"
 	else:
-		print "This time, it doesn't matter you are stupid."
+		print "This time, it doesn't matter you are wrong.\n"
 
 	farmers_market()
 
@@ -82,7 +77,7 @@ def post_office():
 	excise = raw_input("> ")
 
 	if excise == "Federal Excise Tax":
-		print "Great one! Move on to the mall."
+		print "Great one! Move on to the mall.\n"
 		mall()
 	else:
 		print "Try again.\n"
@@ -118,10 +113,10 @@ def mall():
 	freshness = raw_input("What keeps bottled beer freshest?\n")
 
 	if freshness == "Cold":
-		print "Yes."
+		print "Yes.\n"
 		grocery()
 	elif freshness == "Dark":
-		print "Alright."
+		print "Alright.\n"
 		grocery()
 	else:
 		die()
@@ -130,26 +125,26 @@ def beer_store():
 	print "Welcome to the beer store."
 	print "Now things are going to get difficult."
 	print "I'm going to give you a IBU value..."
-	print "You have to give me a corresponding beer style."
+	print "You have to select the corresponding beer style."
 
 	questions = [
-	  {
-	  'question': '12 IBU',
-	  'answer': 2,
-	  'options': ['Munich Dunkel', 'Standard American Lager', 'Oktoberfest']},
-	  {
-	  'question': '28 IBU',
-	  'answer': 1,
-	  'options': ['Schwarzbier', 'Cream Ale', 'ESB']},
-	  {
-	  'question': '45 IBU',
-	  'answer': 2,
-	  'options': ['Oatmeal Stout', 'Dry Stout', 'Sweet Stout']},
-	  {
-	  'question': '80 IBU',
-	  'answer': 3,
-	  'options': ['English IPA', 'Belgian Tripel', 'American Barleywine']},
-	  ]
+		{
+		'question': '12 IBU',
+		'answer': 2,
+		'options': ['Munich Dunkel', 'Standard American Lager', 'Oktoberfest']},
+		{
+		'question': '28 IBU',
+		'answer': 1,
+		'options': ['Schwarzbier', 'Cream Ale', 'ESB']},
+		{
+		'question': '45 IBU',
+		'answer': 2,
+		'options': ['Oatmeal Stout', 'Dry Stout', 'Sweet Stout']},
+		{
+		'question': '80 IBU',
+		'answer': 3,
+		'options': ['English IPA', 'Belgian Tripel', 'American Barleywine']},
+		]
 
 	for ask in questions:
 	    print ask['question'] + '?'
@@ -163,12 +158,37 @@ def beer_store():
 	    else:
 	        print "NO!\n"
 
+	print "That was tough!"
+	nirvana()
+
 def grocery():
 	print "Welcome to the grocery store."
+	print "The clerk will give you a brewing temperature."
+	print "You have to decide if he is brewing an Ale or a Lager."
 
-# def nirvana():
+	for n in range(8):
+		query = random.randint(45, 78)
+		print "Clerk: %d degrees Fahrenheit..." % query
+		temp_ans = raw_input('Ale or Lager?\n')
 
-# def dump():
+		if temp_ans == "Lager" and 45 <= query <= 56:
+			print "Way to go!\n"
+		elif temp_ans == "Ale" and 56 <= query <= 78:
+		  	print "Correct!\n"
+		else:
+			print "You failed!\n"
+			purgatory()
+	print "You were fantastic."
+	nirvana()
+
+def nirvana():
+	print "Great Work! You reached nirvana..............."
+
+def purgatory():
+	print "Not so smart? Infinite limbo.............\n"
+
+	while True:
+		print "Noooooooooo! "
 
 def die():
 	print "Too bad..."
